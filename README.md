@@ -11,3 +11,10 @@
 1. git add .
 2. git commit -m "提交信息"
 3. git push
+
+#测试
+
+##用(传统方式)把修改后的代码上传导github??
+*1.git add .
+*2.git commit -m "提交信息"
+*3.git push
