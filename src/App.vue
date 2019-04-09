@@ -24,7 +24,6 @@
 			</router-link>
 		</nav>
         <!-- 这是容器 -->
-        <h1>123</h1>
     </div>
 </template>
 
