@@ -7,11 +7,19 @@ import VueRouter from 'vue-router';
 // 1.2安装路由
 Vue.use(VueRouter);
 
+// 导入格式化时间的插件
+import moment from 'moment';
+// 定义全局过滤器
+Vue.filter('dateFormat',function(dataStr,pattern="YYYY-MM-DD HH:mm:ss"){
+    return moment(dataStr).format(pattern);
+})
+
 // 2.1导入vue-resource
 import VueResource from 'vue-resource';
 // 2.2安装vue-resource
 Vue.use(VueResource);
-
+// 设置请求的根路径
+Vue.http.options.root='http://127.0.0.1'
 
 // 导入全部的mint-UIz组件
 // import MintUI from 'mint-ui';

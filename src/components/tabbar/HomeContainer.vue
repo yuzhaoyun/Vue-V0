@@ -10,10 +10,10 @@
         <!-- 九宫格 到 六宫格 的改造工程-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                <a href="#">
+                <router-link to="/home/newslist">
                     <img src="../../images/menu10.png" alt="">
                     <div class="mui-media-body">新闻资讯</div>
-                </a>
+                </router-link>
             </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
                 <a href="#">
@@ -55,11 +55,7 @@ import { Toast } from 'mint-ui';
 export default {
     data() {
         return {
-            lunbotuList: [
-                // { id: 1, url: "../../statics/images/1.jpg" },
-                // { id: 2, url: "../../statics/images/2.jpg" },
-                // { id: 3, url: "../../statics/images/3.jpg" }
-            ]//保存轮播图的数组
+            lunbotuList: [ ]//保存轮播图的数组
         }
     },
     created() {
@@ -67,15 +63,15 @@ export default {
     },
     methods: {
         getLunbotu() {  //获取轮播图数据的方法
-            this.$http.get('../../statics/images').then(function (result) {
-                var data = result.body;
-                for (var i = 0; i < data.length; i++) {
-                    var obj = {};
-                    obj.id = i + 1;
-                    obj.url = '../../statics/images/' + data[i]
-                    this.lunbotuList.push(obj);
+            this.$http.get('Vue2019/lunBotu.json').then(function (result) {
+                if(result.body.status===0){
+                    // 成功了
+                    this.lunbotuList=result.body.message;
+                    console.log(this.lunbotuList);
+                }else{
+                    // 失败了
+                    Toast("加载轮播图失败了...");
                 }
-                // Toast('加载轮播图Ok')
             })
         }
     }
