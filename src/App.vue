@@ -1,7 +1,7 @@
 <template>
 	<div class="app-container">
 		<!-- 顶部Header区域 -->
-		<mt-header fixed title="晶和"></mt-header>
+		<mt-header fixed title="中节能晶和照明"></mt-header>
 		<!-- 中间的 路由 router-view 区域 -->
 		<transition>
 			<router-view></router-view>
