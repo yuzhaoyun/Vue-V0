@@ -8,7 +8,8 @@ import ShopcarContainer from './components/tabbar/ShopcarContainer.vue';
 import SearchContainer from './components/tabbar/SearchContainer.vue';
 import NewsList from './components/news/NewsList.vue';
 import Newsinfo from './components/news/Newsinfo.vue';
-import Photolist from './components/photos/Photolist.vue'
+import Photolist from './components/photos/Photolist.vue';
+import Photoinfo from './components/photos/Photoinfo.vue';
 
 
 // 3. 创建路由对象
@@ -21,7 +22,8 @@ var router = new VueRouter({
         {path:'/search',component:SearchContainer},
         {path:'/home/newslist',component:NewsList},
         {path:'/home/newsInfo/:id',component:Newsinfo},
-        {path:'/home/photolist',component:Photolist}
+        {path:'/home/photolist',component:Photolist},
+        {path:'/home/photo/photoinfo/:id',component:Photoinfo}
     ],
     linkActiveClass:'mui-active'  //覆盖默认的router-link-active
 })

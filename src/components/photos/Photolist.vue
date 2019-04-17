@@ -12,13 +12,13 @@
         </div>
         <!-- 图片列表区域 -->
         <ul class="photo-list">
-            <li v-for="item in list" :key="item.id">
+            <router-link tag="li" v-for="item in list" :key="item.id" :to="'/home/photo/photoinfo/'+item.id">
                 <img v-lazy="item.img_url">
                 <div class="info">
                     <h1 class="infoTitle">{{item.title}}</h1>
                     <div class="infoBody">{{item.zhaiyao}}</div>
                 </div>
-            </li>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -82,9 +82,9 @@ export default {
 }
 .photo-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
-    padding-bottom: 0;
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 0px;
   li {
     background-color: #ccc;
     text-align: center;
@@ -93,8 +93,7 @@ export default {
     position: relative;
     img{
         width: 100%;
-        // height: 100%;
-        padding: 10px;
+        height: 100%;
         vertical-align: middle;
     }
     img[lazy="loading"] {
@@ -108,7 +107,7 @@ export default {
         position: absolute;
         bottom: 0;
         max-height: 64px;
-        padding: 10px;
+        // padding: 10px;
         background-color: rgba($color: #000000, $alpha: 0.4);
         .infoTitle{
             font-size: 14px;
