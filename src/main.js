@@ -34,6 +34,11 @@ Vue.component(Swipe.name,Swipe);
 Vue.component(SwipeItem.name,SwipeItem);
 Vue.component(Button.name,Button);
 Vue.use(Lazyload);*/
+
+//引入并安装vue-preview(图片预览插件)
+import VuePreview from "vue2-preview";
+Vue.use(VuePreview);
+
 // 引入mui的样式
 import './lib/mui/css/mui.min.css';
 import './lib/mui/css/icons-extra.css';
