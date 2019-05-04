@@ -8,7 +8,7 @@
         <hr>
         <!-- 缩略图区域 -->
         <div class="thumbs">
-            <img class="preview-img" v-for="(item,index) in list" :key="item.src" :src="item.src" height="100" @click="$preview.open(index,list)">
+            <vue-preview :slides="list" @close="handleClose"></vue-preview>
         </div>
         <!-- 图片内容区域 -->
         <div class="content" v-html="photoInfo.content"></div>
@@ -42,7 +42,9 @@ export default {
             this.$http.get("Vue2019/photos/photoInfoImg/"+this.id+".json").then(function(res){
                 if(res.body.status === 0){
                     // 循环每个图片数据,不全图片的宽和高
-                    res.body.message.forEach(item => {
+                    res.body.message.forEach((item,index) => {
+                        item.alt = "picture"+index;
+                        item.title = "Image Caption "+index;
                         item.w = 600;
                         item.h = 400;
                     });
@@ -50,6 +52,9 @@ export default {
                     this.list = res.body.message;
                 }
             })
+        },
+        handleClose () {
+            console.log('close event')
         }
     },
     created(){
