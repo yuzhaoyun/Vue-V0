@@ -66,11 +66,17 @@ import router from './router.js';
  */
 import Vuex from "vuex";
 Vue.use(Vuex);
+
+// 每次刚进入网站,肯定会 调用 main.js 在刚调用的时候,先从本地存储中把数据读出来,放到store中
+var car = JSON.parse(localStorage.getItem('car') || '[]');
+
+
 var store = new Vuex.Store({
     state:{
         // 可以把 state 理解成组件中的 data(专门用来存储数据)
         // 如果想在 组件中,想要访问,store 中的数据,只能通过 this.$store.state.*** 来访问
-        count:0
+        count:0,
+        car:car,// 将 购物车中的数据,用一个数组存储起来,在car数据中存储一些商品的对象
     },
     mutations:{
         // 可以把 mutations 理解成组件中的 methods
@@ -79,17 +85,50 @@ var store = new Vuex.Store({
         increment(state){
             // 注意:mutations 的 函数参数列表中,最多支持两个参数,其中:参数1:是state状态,参数2:提交过来的参数
             state.count++
+        },
+        addToCar(state,goodinfo){
+            // 点击加入购物车,把商品信息,保存到 store 中的 car 上
+            /**
+             * 1.如果购物车中,之前就有这个对应的商品了,那么,只需要更新数量
+             * 2.如果没有则直接把商品数据push到car中
+             */
+
+            // 假设 在购物车中,没有找到对应的商品
+            var flag = false;
+            state.car.some(item=>{
+                if(item.id == goodinfo.id){
+                    item.count += parseInt(goodinfo.count);
+                    flag = true;
+                    return true;
+                }
+            })
+            // 如果最终,循环完毕,得到的flag还是false,则把商品数据直接push到购物车中
+            if(!flag){
+                state.car.push(goodinfo);
+            }
+            
+            // 当 更新 car 之后,把 car 数组,存储到 本地的 localStorage 中
+            localStorage.setItem("car",JSON.stringify(state.car));
+
         }
         // 注意:如果 组件想要调用mutations 中的方法,只能使用 this.$store.commit('方法名')
         // 这种调用 mutations 方法的格式,和 this.$emit('父组件中的方法名')
     },
     getters:{
+        // 相当于 计算属性,也 相当于 filters
         // 注意 getters 只负责提供数据,不负责 修改数据,如果想要修改 state 中的数据,请去找motation
-        optCount:function(){
+        optCount:function(state){
             return "当前新的count值是:"+state.count;
-        }
+        },
         // 经过对比,发现 getters 中的方法,和组件中的过滤器比较类似,因为 过滤器和getters都没有原数据
         // 其次 getters也和 computed 比较像,只要state中数据发生变化,那么,如果 getters 正好引用了这个数据,那么就会立即出发 getters 的重新求值
+        getAllCount(state){
+            var c = 0;
+            state.car.forEach(item=>{
+                c += item.count;
+            })
+            return c;
+        }
     }
     /**
      * 总结:
@@ -99,7 +138,7 @@ var store = new Vuex.Store({
      * 4.如果 store 中的 state 上的数据,对外提供的时候,需要做一层包装,推荐使用getters
      *  如果需要使用getters,则使用 this.$store.getters.***
      */
-})
+}) 
 
 var vm=new Vue({
     el:"#app",

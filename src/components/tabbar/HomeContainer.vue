@@ -7,7 +7,7 @@
                 <img :src="item.url">
             </mt-swipe-item>
         </mt-swipe> -->
-        <swiper :lunbotuList="lunbotuList"></swiper>
+        <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
         <!-- 九宫格 到 六宫格 的改造工程-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -52,7 +52,7 @@
 
 <script>
 import { Toast } from 'mint-ui';
-import swiper from '../subcomponents/swiper';
+import swiper from '../subcomponents/swiper.vue';
 
 export default {
     data() {
